@@ -1,0 +1,180 @@
+body{
+	
+	box-sizing:border-box;
+	background: #ebebeb;
+}
+.header{
+
+	background: #f4645f;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	text-align: center;
+	font-size: 20px;
+	color:white;
+	font-weight: bold;
+}
+.nav{
+
+	text-align: center;
+	background: white;
+	margin-bottom: 35px;
+	border-top: 1px solid #ebebeb;
+	border-bottom: 2px solid #e1e1e1;
+}
+
+.nav li{
+
+	list-style: none;
+	display: inline-block;
+	
+}
+
+.nav li.index{
+
+	border-bottom: 2px solid #f4645f;
+	margin-bottom: -20px;
+}
+
+.nav li a{
+
+	color:#505050;
+	display: block;
+	line-height: 2em;
+	padding: 0 20px;
+
+}
+a{
+	
+	text-decoration:none;
+	
+
+}
+
+.nav li a:hover{
+
+	color:#f4645f;
+}
+
+.container{
+
+
+	
+	padding: 0 50px;
+	overflow: hidden;
+}
+.content{
+
+	float: left;
+	padding: 0 20px;
+	width:60%;
+}
+
+.post{
+
+	background: white;
+	margin-bottom: 35px;
+	padding: 50px;
+
+}
+.post .post-head{
+
+	text-align: center;
+
+}
+.post .post-head .post-title{
+
+	line-height: 1.2em;
+	
+}
+h1 a{
+	color:#303030;
+
+}
+h1{color:#303030;}
+
+.post .post-content{
+
+	margin: 30px 0;
+	color:#444443;
+}
+.post-content p{
+	margin-bottom: 30px;
+	text-indent: 2em;
+	line-height: 2em;
+}
+.btn-default{
+
+	border: 1px solid #f4645f;
+	background: #f4645f;
+	color:white;
+	padding: 7px 14px;
+	border-radius: 5px;
+}
+.btn-default:hover{
+
+	background: black;
+	border: none;
+}
+.post-cat{
+
+	margin-top: 50px;
+	border-top: 1px solid #ebebeb;
+	padding: 20px 0 0 0;
+	color:#959595;
+}
+.post-cat a{
+
+	color:#cccccc;
+}
+.post-cat a:hover{
+	color:#f4645f;
+
+}
+.sidebar{
+
+ 	float: left;
+ 	width: 30%;
+ 	padding: 0 20px;
+
+}
+.widget{
+
+	background: white;
+	padding: 20px;
+}
+.widget-title{
+
+	border-bottom: 1px solid #ebebeb;
+	
+	line-height: 2em;
+	padding-bottom: 5px;
+
+}
+.widget-content{
+
+	padding: 20px 0 20px 0;
+}
+.page{
+
+	text-align: center;
+	margin-bottom: 30px;
+
+	
+}
+.page-number{
+	background: #f4645f;
+	padding: 10px 20px;
+	border-radius: 5px;
+	margin: 0 3px;
+}
+.older-posts{
+
+	background: #f4645f;
+	color:white;
+
+}
+.page i{
+
+	height:36px;
+	width:36px;
+}
