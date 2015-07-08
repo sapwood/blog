@@ -27,7 +27,7 @@ class App(tornado.web.Application):
 
             )
         try:
-            conn=MySQLdb.connect(host='localhost',user='root',passwd='123456a',cursorclass=MySQLdb.cursors.DictCursor)
+            conn=MySQLdb.connect(host='localhost',user='root',passwd='34472725a',cursorclass=MySQLdb.cursors.DictCursor)
             conn.select_db('blog')
             self.cur=conn.cursor()
 

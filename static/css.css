@@ -105,12 +105,17 @@ h1{color:#303030;}
 .btn-default{
 
 	border: 1px solid #f4645f;
-	background: #f4645f;
+	
 	color:white;
 	padding: 7px 14px;
 	border-radius: 5px;
+	cursor: pointer;
 }
-.btn-default:hover{
+.btn-red{
+
+	background: #f4645f;
+}
+.btn-red:hover{
 
 	background: black;
 	border: none;
@@ -177,4 +182,81 @@ h1{color:#303030;}
 
 	height:36px;
 	width:36px;
+}
+.login{
+	
+	margin:100px auto;
+	line-height: 30px;
+	width: 320px;
+}
+.logo{
+
+	text-align: center;
+}
+.logo a{
+
+	background-image: url('../static/conna.jpg');
+	background-size: 80px;
+	background-position: center top;
+	background-repeat: no-repeat;
+	height: 90px;
+	color: #999;
+	display: block;
+}
+.login-info{
+
+	
+	box-shadow: 0 1px 3px rgba(0,0,0,.13);
+	background: white;
+	padding: 10px 0;
+	margin-top:30px;
+	overflow: hidden;
+	
+}
+.login-info p{
+
+	display: block;
+	padding: 0 20px;
+
+
+}
+.rem{
+
+	float: left;
+}
+.rem label{
+
+	font-size: 14px;
+	float: left;
+}
+#remember{
+
+	width: 15px;
+	
+}
+.login-info input{
+
+	border: 1px solid #ddd;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+	font-size: 24px;
+	width:100%;
+	display: inline-block;
+	
+	
+	
+}
+.submit{
+
+	display: inline-block;
+	float: right;
+}
+.submit input{
+
+	font-size: 14px;
+}
+.btn-blue{
+	background: #00a0d2;
+}
+label{
+	cursor:pointer;
 }
