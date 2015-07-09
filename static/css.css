@@ -46,6 +46,7 @@ body{
 a{
 	
 	text-decoration:none;
+	color:white;
 	
 
 }
@@ -114,10 +115,13 @@ h1{color:#303030;}
 .btn-red{
 
 	background: #f4645f;
+	transition-property:background,border;
+	transition-duration:0.5s;
+	transition-timming-function:ease-in-out;
 }
 .btn-red:hover{
 
-	background: black;
+	background: #cc0033;
 	border: none;
 }
 .post-cat{
@@ -130,6 +134,9 @@ h1{color:#303030;}
 .post-cat a{
 
 	color:#cccccc;
+	transition-property:color;
+	transition-duration:0.5s;
+	transition-timming-function:ease-in-out;
 }
 .post-cat a:hover{
 	color:#f4645f;
@@ -171,6 +178,7 @@ h1{color:#303030;}
 	padding: 10px 20px;
 	border-radius: 5px;
 	margin: 0 3px;
+	color:white;
 }
 .older-posts{
 
@@ -178,10 +186,11 @@ h1{color:#303030;}
 	color:white;
 
 }
-.page i{
+.page a{
 
-	height:36px;
-	width:36px;
+	padding: 10px 10px;
+	border-radius: 5px;
+
 }
 .login{
 	
@@ -259,4 +268,60 @@ h1{color:#303030;}
 }
 label{
 	cursor:pointer;
+}
+
+.topbar{
+
+	background: #23282d;
+	position: fixed;
+	top:0;
+	width: 100%;
+	height: 32px;
+	color: #ccc;
+
+}
+.wrap{
+
+	margin-top: 40px;
+	overflow: hidden;
+}
+.menubar ul{
+
+	padding: 0 30px;
+}
+.menubar li{
+
+	list-style: none;
+	
+	font-size: 16px;
+	line-height: 2em;
+	display:list-item;
+
+}
+.menubar{
+
+	background: #23282d;
+	float: left;
+	width: 15%;
+	
+}
+.menubar a{
+
+	transition-property:color,background;
+	transition-duration:0.5s;
+	transition-timming-function:ease-in-out;
+
+
+}
+.menubar a:hover{
+
+	color:#0DAFDE;
+	background: white;
+
+}
+.main-content{
+
+	display: inline-block;
+	float: right;
+	width: 80%;
 }
