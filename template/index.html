@@ -42,8 +42,15 @@
 				</div>
 			{%end%}
 				<div class='page'>
-					<span class='page-number'>第1页/共4页</span>
-					<a href='#' class='older-posts'><i>></i></a>
+						{%if (page+1)<=pages%}
+							<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+						
+							<a href='/page/{{page+1}}' class='older-posts'>></a>
+						{%else%}
+							<a href='/page/{{page-1}}' class='older-posts'><</a>
+							<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+						{%end%}
+
 				</div>
 
 
