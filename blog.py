@@ -50,7 +50,7 @@ class MainHandler(tornado.web.RequestHandler):
         else:
             pages=len(passage)/3+1
         if page: 
-            start=(int(page)-1)*4
+            start=(int(page)-1)*3
             
             self.application.cur.execute('select * from passage order by id desc limit %s,3',start)
             passage=self.application.cur.fetchall()
@@ -82,9 +82,7 @@ class BlogHandler(tornado.web.RequestHandler):
             self.redirect('/')
         except:
             self.write('Something goes wrong')
-        test=self.get_arguments('name')
-        for t in test:
-            print t
+   
         #self.redirect('/')
 class LoginHandler(tornado.web.RequestHandler):
     def get(self):
