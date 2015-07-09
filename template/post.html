@@ -2,6 +2,7 @@
 	<head>
 		<link rel='stylesheet' href="{{static_url('css.css')}}" type='text/css'>
 		<link rel='stylesheet' href="../static/css.css" type='text/css'>
+		<script type="text/javascript" src="../static/nicEdit.js"></script>
 	</head>
 	<div>
 	<body>
@@ -19,13 +20,45 @@
 					</div>
 					<div class='main-content' >	
 						<form method='post'>
-							title:<input type='text' name='title'>
-							author:<input type='text' name='author'>
-							content<textarea name='content'></textarea>
+							<div class='postbody-content'>
+								<div class='titlediv'>
+									
+									<input class='title' type='text' name='title' autocomplete='off' placeholder='在此输入标题'>
+									<div class='edit-slug'>
+										<strong>固定链接</strong>
+										<span >http://www.url.com</span>
+										<span><a class='btn-url-edit' href='#'>编辑</a></span>
+									</div>
+								</div>
+
+								<div class='context'>
+									
+									 <script type="text/javascript">
+										//<![CDATA[
+        								bkLib.onDomLoaded(function() { 
+        									new nicEditor({iconsPath : '../static/nicEditorIcons.gif',fullPanel:true}).panelInstance('context');
+
+
+
+        									 });
+
+  													//]]>
+  										</script>
+									<textarea name='context' id='context'></textarea>
+								</div>
 							cat:<input type='text' name='cat'>
 							url:<input type='text' name='url'>
 							cat_url:<input type='text' name='cat_url'>
 							<input type='submit' value='submit'>
+
+							</div>
+							<div class='post-box'>
+								<div class='post-box-stuff'>
+									<div class='title'>
+										TITLE
+									</div>
+								</div>
+							</div>
 						</form>
 					</div>
 				</div>
