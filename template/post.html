@@ -1,9 +1,34 @@
-<form method='post'>
-	title:<input type='text' name='title'>
-	author:<input type='text' name='author'>
-	content<input type='text' name='content'>
-	cat:<input type='text' name='cat'>
-	url:<input type='text' name='url'>
-	cat_url:<input type='text' name='cat_url'>
-	<input type='submit' value='submit'>
-</form>
+<html>
+	<head>
+		<link rel='stylesheet' href="{{static_url('css.css')}}" type='text/css'>
+		<link rel='stylesheet' href="../static/css.css" type='text/css'>
+	</head>
+	<div>
+	<body>
+		<div class='postbody'>
+			<div class='topbar'></div>
+				<div class='wrap'>
+					<div class='menubar'>
+						<ul>
+							<a href='#'><li>发表文章</li></a>
+							<a href='#'><li>发表文章</li></a>
+							<a href='#'><li>发表文章</li></a>
+							<a href='#'><li>发表文章</li></a>
+
+						</ul>
+					</div>
+					<div class='main-content' >	
+						<form method='post'>
+							title:<input type='text' name='title'>
+							author:<input type='text' name='author'>
+							content<textarea name='content'></textarea>
+							cat:<input type='text' name='cat'>
+							url:<input type='text' name='url'>
+							cat_url:<input type='text' name='cat_url'>
+							<input type='submit' value='submit'>
+						</form>
+					</div>
+				</div>
+		</div>
+	</body>
+</html>
