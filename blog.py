@@ -11,7 +11,7 @@ import MySQLdb.cursors
 import time
 
 define('port',default=8000,help='run on the given port',type=int)
-define("debug", default=False, help="run in debug mode")
+define("debug", default=True, help="run in debug mode")
 
 
 class App(tornado.web.Application):
@@ -73,7 +73,7 @@ class BlogHandler(tornado.web.RequestHandler):
         p_date=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
         title=self.get_argument('title').encode('utf-8')
         author=self.get_argument('author').encode('utf-8')
-        content=self.get_argument('content').encode('utf-8')
+        content=self.get_argument('context').encode('utf-8')
         url=self.get_argument('url').encode('utf-8')
         cat=self.get_argument('cat').encode('utf-8')
         cat_url=self.get_argument('cat_url').encode('utf-8')
