@@ -46,7 +46,7 @@ body{
 a{
 	
 	text-decoration:none;
-	color:white;
+	
 	
 
 }
@@ -292,7 +292,7 @@ label{
 .menubar li{
 
 	list-style: none;
-	
+	color:white;
 	font-size: 16px;
 	line-height: 2em;
 	display:list-item;
@@ -307,7 +307,7 @@ label{
 }
 .menubar a{
 
-	transition-property:color,background;
+	transition-property:color;
 	transition-duration:0.5s;
 	transition-timming-function:ease-in-out;
 
@@ -316,12 +316,65 @@ label{
 .menubar a:hover{
 
 	color:#0DAFDE;
-	background: white;
+	
 
 }
 .main-content{
 
-	display: inline-block;
+	padding: 10px 20px;
 	float: right;
 	width: 80%;
+}
+.main-content form{
+
+	overflow: hidden;
+}
+.postbody-content{
+
+	float: left;
+	width: 70%;
+
+}
+.post-box{
+	float: right;
+	width: 20%;
+	padding: 10px 20px;
+}
+.titlediv .title{
+
+	border: 1px solid #ddd;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+	font-size: 24px;
+	line-height: 1.5em;
+	width:100%;
+	display: inline-block;
+
+}
+.edit-slug{
+
+	padding: 10px 0px;
+	color: #666;
+}
+.btn-url-edit{
+
+	border: 1px solid #ccc;
+	
+	color:#555;
+	padding: 2px 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	background: #f7f7f7;
+
+
+}
+.context textarea{
+
+	width: 100%;
+	height:300px;
+}
+.nicEdit-main{
+
+	background: white;
+	border: 1px solid #ddd;
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
 }
