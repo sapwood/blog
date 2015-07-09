@@ -18,7 +18,10 @@ class App(tornado.web.Application):
     def __init__(self):
         handlers=[
             (r'/',MainHandler),
+            (r'/page/(\d+)',MainHandler),
             (r'/blog',BlogHandler),
+            (r'/login',LoginHandler),
+            
         ]
         settings=dict(
             template_path=os.path.join(os.path.dirname(__file__),'template'),
@@ -27,7 +30,7 @@ class App(tornado.web.Application):
 
             )
         try:
-            conn=MySQLdb.connect(host='localhost',user='root',passwd='34472725a',cursorclass=MySQLdb.cursors.DictCursor)
+            conn=MySQLdb.connect(host='localhost',user='root',passwd='123456a',cursorclass=MySQLdb.cursors.DictCursor)
             conn.select_db('blog')
             self.cur=conn.cursor()
 
@@ -37,10 +40,29 @@ class App(tornado.web.Application):
 
 class MainHandler(tornado.web.RequestHandler):
 
-    def get(self):
-        self.application.cur.execute('select * from passage ')
+    def get(self,page=None):
+        self.application.cur.execute('select * from passage order by id desc')
         passage=self.application.cur.fetchall()
-        self.render('index.html',passage=passage)
+        if len(passage)==0:
+            pages=1
+        elif len(passage)%3==0:
+            pages=len(passage)/3
+        else:
+            pages=len(passage)/3+1
+        if page: 
+            start=(int(page)-1)*4
+            
+            self.application.cur.execute('select * from passage order by id desc limit %s,3',start)
+            passage=self.application.cur.fetchall()
+
+            self.render('index.html',passage=passage,page=int(page),pages=pages)
+        else:
+            self.application.cur.execute('select * from passage order by id desc limit 0,3 ')
+            passage=self.application.cur.fetchall()
+
+            self.render('index.html',passage=passage,page=1,pages=pages)
+
+
     
 
 class BlogHandler(tornado.web.RequestHandler):
@@ -55,12 +77,28 @@ class BlogHandler(tornado.web.RequestHandler):
         url=self.get_argument('url').encode('utf-8')
         cat=self.get_argument('cat').encode('utf-8')
         cat_url=self.get_argument('cat_url').encode('utf-8')
-        self.application.cur.execute("insert into passage(title,author,p_date,content,cat,url,cat_url)values(%s,%s,%s,%s,%s,%s,%s)",(title,author,p_date,content,cat,url,cat_url))
-        self.write('success')
+        try:
+            self.application.cur.execute("insert into passage(title,author,p_date,content,cat,url,cat_url)values(%s,%s,%s,%s,%s,%s,%s)",(title,author,p_date,content,cat,url,cat_url))
+            self.redirect('/')
+        except:
+            self.write('Something goes wrong')
         test=self.get_arguments('name')
         for t in test:
-            self.write(t)
+            print t
         #self.redirect('/')
+class LoginHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render('login.html')
+    def post(self):
+        user=self.get_argument('username')
+        passwd=self.get_argument('passwd')
+        self.application.cur.execute("select * from user where username=%s and passwd=%s",(user,passwd))
+        login=self.application.cur.fetchall()
+        if len(login)==1:
+            self.redirect('/blog')
+        else:
+            self.render('login.html')
+
 def main():
     parse_command_line()
     app = App()
