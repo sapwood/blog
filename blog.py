@@ -21,12 +21,15 @@ class App(tornado.web.Application):
             (r'/page/(\d+)',MainHandler),
             (r'/blog',BlogHandler),
             (r'/login',LoginHandler),
+            (r'/single/(\w+)',SingleHandler),
+            (r'/cat/(\w+)',CatHandler),
             
         ]
         settings=dict(
             template_path=os.path.join(os.path.dirname(__file__),'template'),
             static_path=os.path.join(os.path.dirname(__file__),'static'),
             debug=options.debug,
+
 
             )
         try:
@@ -50,12 +53,14 @@ class MainHandler(tornado.web.RequestHandler):
         else:
             pages=len(passage)/3+1
         if page: 
-            start=(int(page)-1)*3
-            
-            self.application.cur.execute('select * from passage order by id desc limit %s,3',start)
-            passage=self.application.cur.fetchall()
+            if int(page)<=0 or int(page)>pages:
+                self.render('404.html')
+            else:
+                start=(int(page)-1)*3
+                self.application.cur.execute('select * from passage order by id desc limit %s,3',start)
+                passage=self.application.cur.fetchall()
 
-            self.render('index.html',passage=passage,page=int(page),pages=pages)
+                self.render('index.html',passage=passage,page=int(page),pages=pages)
         else:
             self.application.cur.execute('select * from passage order by id desc limit 0,3 ')
             passage=self.application.cur.fetchall()
@@ -96,6 +101,26 @@ class LoginHandler(tornado.web.RequestHandler):
             self.redirect('/blog')
         else:
             self.render('login.html')
+
+class SingleHandler(tornado.web.RequestHandler):
+    def get(self,name=None):
+        if name:
+            self.application.cur.execute("select * from passage where url=%s",name)
+            row=self.application.cur.fetchone()
+            self.render('page.html',row=row)
+        else:
+            self.render('404.html')
+
+class CatHandler(tornado.web.RequestHandler):
+    def get(self,cat_en_name=None):
+        if cat_en_name:
+            self.application.cur.execute("select * from passage where cat_url=%s order by id desc",cat_en_name)
+            passage=self.application.cur.fetchall()
+            cat=passage[0]['cat']
+
+            self.render('cat.html',passage=passage,cat=cat)
+        else:
+            self.render('404.html')
 
 def main():
     parse_command_line()
