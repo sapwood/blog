@@ -1,7 +1,12 @@
+{%autoescape None%}
 <html>
 	<head>
-		<!--<link rel='stylesheet' href='{{ static_url("css.css") }}' type='text/css'/>-->
+		<link rel='stylesheet' href="{{static_url('css.css')}}" type='text/css'/>
 		<link rel='stylesheet' href='../static/css.css' type='text/css'/>
+		 {% block header %}
+		<script type="text/javascript" src="../static/jquery.js"></script>
+		
+		{% end %}
 	</head>
 	<body>
 		<div class='header'>
@@ -11,7 +16,7 @@
 			
 			<ul class='menu'>
 				<li class='index'>
-					<a href="#">主页</a></li>
+					<a href="/">主页</a></li>
 				<li class='menuitem'><a href="#">新闻中心</a></li>
 				<li class='menuitem'><a href="#">产品中心</a></li>
 				<li class='menuitem'><a href="#">关于我们</a></li>
@@ -21,43 +26,62 @@
 			</ul>
 		</div>
 		<div class='container'>
+			
 			<div class='content'>
+			{%block content%}
 			{%for row in passage%}
+				
 				<div class='post'>
+					
 					<div class='post-head'>
-						<h1 class='post-title'><a href="{{row['url']}}">{{row['title']}}</a></h1>
+						<h1 class='post-title'><a href="/single/{{row['url']}}">{{row['title']}}</a></h1>
 						<div class='post-meta'><span>{{row['author']}} Date:{{row['p_date']}}</span></div>
 					</div>
 					<div class='post-content'>
-						<p>{{row['content']}} </p>
+						
+						
+						{{row['content']}} 
+						
+						
 
 					</div>
 					<div class='permalink'>
-						<a href="{{row['url']}}" class="btn-default btn-red">阅读全文</a>
+						<a href="/single/{{row['url']}}" class="btn-default btn-red">阅读全文</a>
 					</div>
 					<div class='post-cat'>
-						<a href="{{row['cat_url']}}">{{row['cat']}}</a>
+						<a href="/cat/{{row['cat_url']}}">{{row['cat']}}</a>
 					</div>
 					
 				</div>
+				
 			{%end%}
 				<div class='page'>
-						{%if (page+1)<=pages%}
+
+
+						{%if pages==1%}
 							<span class='page-number'>第{{page}}页/共{{pages}}页</span>
-						
-							<a href='/page/{{page+1}}' class='older-posts'>></a>
-						{%elif pages==1%}
-							
-							<span class='page-number'>第{{page}}页/共{{pages}}页</span>
-						{%else%}
-							<a href='/page/{{page-1}}' class='older-posts'><</a>
-							<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+						{%elif pages>1 %}
+							{%if page>1 and page<pages%}
+								<a href='/page/{{page-1}}' class='older-posts'><</a>
+								<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+								<a href='/page/{{page+1}}' class='older-posts'>></a>
+							{%elif page==1%}
+								<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+								<a href='/page/{{page+1}}' class='older-posts'>></a>
+							{%elif page==pages%}
+								<a href='/page/{{page-1}}' class='older-posts'><</a>
+								<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+
+							{%end%}
 						{%end%}
+
+
 
 				</div>
 
-
+			{%end%}
 			</div>
+			
 
 			<div class='sidebar'>
 				<div class='widget'>
