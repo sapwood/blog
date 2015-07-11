@@ -1,0 +1,18 @@
+<div class='page'>
+	{%if pages==1%}
+		<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+	{%elif pages>1 %}
+		{%if page>1 and page<pages%}
+			<a href='/page/{{page-1}}' class='older-posts'><</a>
+			<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+			<a href='/page/{{page+1}}' class='older-posts'>></a>
+		{%elif page==1%}
+			<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+			<a href='/page/{{page+1}}' class='older-posts'>></a>
+		{%elif page==pages%}
+			<a href='/page/{{page-1}}' class='older-posts'><</a>
+			<span class='page-number'>第{{page}}页/共{{pages}}页</span>
+
+		{%end%}
+	{%end%}
+</div>
