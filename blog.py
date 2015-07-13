@@ -16,7 +16,7 @@ define("debug", default=True, help="run in debug mode")
 define('mysql_host',default='localhost',help='mysql host address')
 define('mysql_db',default='blog',help='mysql database name')
 define('mysql_user',default='root',help='mysql username')
-define('mysql_pwd',default='34472725a',help='mysql user password')
+define('mysql_pwd',default='123456a',help='mysql user password')
 define('mysql_charset',default='utf8',help='mysql charset')
 
 
@@ -30,13 +30,15 @@ class Application(tornado.web.Application):
             (r'/login',LoginHandler),
             (r'/single/(\w+)',SingleHandler),
             (r'/cat/(\w+)',CatHandler),
+            (r'/quit',QuitHandler),
             
         ]
         settings=dict(
             template_path=os.path.join(os.path.dirname(__file__),'template'),
             static_path=os.path.join(os.path.dirname(__file__),'static'),
             debug=options.debug,
-            ui_modules={'nav':NavModule,'entry':EntryModule,'headernav':HeaderNavModule,'sidebar':SidebarModule}
+            ui_modules={'nav':NavModule,'entry':EntryModule,'headernav':HeaderNavModule,'sidebar':SidebarModule},
+            cookie_secret='34472725a',
 
 
             )
@@ -92,8 +94,13 @@ class MainHandler(BaseHandler):
 
 class BlogHandler(BaseHandler):
     def get(self):
+        my_cookie=self.get_secure_cookie('bevis')
+        if my_cookie=='':
+            self.redirect('/login')
+        else:
 
-        self.render('back.html')
+            print self.get_secure_cookie('bevis')
+            self.render('back.html')
     def post(self):
         p_date=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
         title=self.get_argument('title')
@@ -117,6 +124,7 @@ class LoginHandler(BaseHandler):
         login=self.cur.execute("select * from user where username=%s and passwd=%s",(user,passwd))
         
         if login!=0:
+            self.set_secure_cookie('bevis','value')
             self.redirect('/blog')
         else:
             self.render('login.html')
@@ -140,6 +148,13 @@ class CatHandler(BaseHandler):
             self.render('cat.html',passage=passage,cat=cat)
         else:
             self.render('404.html')
+
+class QuitHandler(BaseHandler):
+
+    def get(self):
+        self.set_secure_cookie('bevis','')
+        self.redirect('/login')
+
 
 class NavModule(tornado.web.UIModule):
     def render(self,pages,page):
