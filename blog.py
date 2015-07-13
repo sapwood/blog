@@ -28,9 +28,10 @@ class Application(tornado.web.Application):
             (r'/page/(\d+)',MainHandler),
             (r'/blog',BlogHandler),
             (r'/login',LoginHandler),
-            (r'/single/(\w+)',SingleHandler),
+            (r'/single/([% \wd]+)',SingleHandler),
             (r'/cat/(\w+)',CatHandler),
             (r'/quit',QuitHandler),
+            (r'/edit-cat',EditCatHandler),
             
         ]
         settings=dict(
@@ -38,7 +39,7 @@ class Application(tornado.web.Application):
             static_path=os.path.join(os.path.dirname(__file__),'static'),
             debug=options.debug,
             ui_modules={'nav':NavModule,'entry':EntryModule,'headernav':HeaderNavModule,'sidebar':SidebarModule},
-            cookie_secret='34472725a',
+            cookie_secret='123456a',
 
 
             )
@@ -62,6 +63,15 @@ class BaseHandler(tornado.web.RequestHandler):
     @property
     def cur(self):
         return self.application.cur
+
+    def is_login(self):
+        
+        my_cookie=self.get_secure_cookie('cookie_name')
+        if my_cookie=='':
+            return False
+        else:
+            return True
+
     
 
 class MainHandler(BaseHandler):
@@ -94,12 +104,12 @@ class MainHandler(BaseHandler):
 
 class BlogHandler(BaseHandler):
     def get(self):
-        my_cookie=self.get_secure_cookie('bevis')
-        if my_cookie=='':
+        islogin=self.is_login()
+        
+
+        if not islogin:
             self.redirect('/login')
         else:
-
-            print self.get_secure_cookie('bevis')
             self.render('back.html')
     def post(self):
         p_date=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
@@ -124,7 +134,7 @@ class LoginHandler(BaseHandler):
         login=self.cur.execute("select * from user where username=%s and passwd=%s",(user,passwd))
         
         if login!=0:
-            self.set_secure_cookie('bevis','value')
+            self.set_secure_cookie('cookie_name',user+passwd)
             self.redirect('/blog')
         else:
             self.render('login.html')
@@ -152,8 +162,16 @@ class CatHandler(BaseHandler):
 class QuitHandler(BaseHandler):
 
     def get(self):
-        self.set_secure_cookie('bevis','')
+        self.set_secure_cookie('cookie_name','')
         self.redirect('/login')
+
+class EditCatHandler(BaseHandler):
+    def get(self):
+        islogin=self.is_login()
+        if not islogin:
+            self.redirect('/login')
+        else:
+            self.render('edit-cat.html')
 
 
 class NavModule(tornado.web.UIModule):
