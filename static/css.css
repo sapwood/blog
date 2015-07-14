@@ -279,6 +279,7 @@ h1{color:#303030;}
 }
 .btn-blue{
 	background: #00a0d2;
+	border: none;
 }
 label{
 	cursor:pointer;
@@ -435,4 +436,49 @@ label{
 
 	list-style: none;
 	padding: 0;
+}
+
+.center{
+
+	background: white;
+	float: left;
+	width: 100%;
+	
+}
+.add-cat{
+
+	line-height: 3em;
+	float: left;
+	padding: 30px;
+	margin: 10px;
+}
+
+.add-cat input{
+
+	margin: 5px;
+
+}
+.add-cat .cat-name{
+
+	padding: 10px;
+}
+.add-cat .cat-url{
+
+	padding: 10px;
+}
+.show-cat{
+
+	float: right;
+	padding: 30px;
+	margin: 20px;
+}
+.show-cat table{
+
+	border: 1px solid #e5e5e5;
+	padding: 30px;
+	line-height: 2em;
+}
+.show-cat th{
+
+	padding: 10px;
 }
