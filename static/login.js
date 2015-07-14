@@ -1,5 +1,15 @@
 $(document).ready(function(){
 
+
+	$("body").keydown(function(){
+
+		if(event.keyCode==13) { 
+   			$(".btn-default.btn-blue").click(); 
+ 	 	} 
+	});
+
+
+
 	$('.btn-default.btn-blue').click(function(){
 		
 		var username=$('#username').val();
@@ -11,7 +21,7 @@ $(document).ready(function(){
 	      	passwd:passwd
 	    	},
 	    	function(data,status){
-	      	//$(window.location).attr('href', '/blog');
+	      	
 	      	if (data=='yes'){
 
 	      		$(window.location).attr('href', '/blog');
