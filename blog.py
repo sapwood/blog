@@ -148,15 +148,19 @@ class LoginHandler(BaseHandler):
     def get(self):
         self.render('login.html')
     def post(self):
-        user=self.get_argument('username')
+        username=self.get_argument('username')
         passwd=self.get_argument('passwd')
-        login=self.cur.execute("select * from user where username=%s and passwd=%s",(user,passwd))
+
+        login=self.cur.execute("select * from user where username=%s and passwd=%s",(username,passwd))
         
+        print login
+
         if login!=0:
-            self.set_secure_cookie('cookie_name',user+passwd)
-            self.redirect('/blog')
+            self.set_secure_cookie('cookie_name',username+passwd)
+            self.write('yes')
         else:
-            self.render('login.html')
+            self.write('fuck')
+
 
 class SingleHandler(BaseHandler):
     def get(self,name=None):
