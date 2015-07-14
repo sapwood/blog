@@ -52,43 +52,41 @@
 	  										</script>
 										<textarea name='context' id='context' ></textarea>
 									</div>
-								cat:<input type='text' name='cat'>
-								
-								cat_url:<input type='text' name='cat_url'>
+
 								author:<input type='text' name='author'>
 								
 
 								</div>
 							{%end%}
-							<div class='post-box'>
-								<div class='post-box-stuff'>
-									<div class='title'>
-										发布
+
+							{%block post-box%}
+								<div class='post-box'>
+									<div class='post-box-stuff'>
+										<div class='title'>
+											发布
+										</div>
+										<div >
+											<input type='submit' value='发布'>
+										</div>
 									</div>
-									<div >
-										<input type='submit' value='发布'>
+									<div class='post-box-stuff'>
+										<div class='title'>
+												分类目录
+										</div>
+										<div >
+											<ul>
+												{%for cat_name in cat_names%}
+													<li>
+														<label>
+															<input value="{{cat_name['name']}}" type="checkbox" name="post_cat"> {{cat_name['name']}}
+														</label>
+													</li>
+												{%end%}
+											</ul>
+										</div>
 									</div>
 								</div>
-							<div class='post-box-stuff'>
-								<div class='title'>
-										分类目录
-								</div>
-								<div >
-									<ul>
-										<li>
-											<label>
-												<input value="1" type="checkbox" name="post_category[]" id="in-category-1"> 未分类
-											</label>
-										</li>
-										<li>
-											<label>
-												<input value="2" type="checkbox"  name="post_category[]" id="in-category-1"> 有分类很长的分类
-											</label>
-									</li>
-									</ul>
-								</div>
-							</div>
-							</div>
+							{%end%}
 						</form>
 					</div>
 				</div>
