@@ -28,8 +28,8 @@ class Application(tornado.web.Application):
             (r'/page/(\d+)',MainHandler),
             (r'/blog',BlogHandler),
             (r'/login',LoginHandler),
-            (r'/single/([% \wd]+)',SingleHandler),
-            (r'/cat/(\w+)',CatHandler),
+            (r'/single/([% _ \- \wd]+)',SingleHandler),
+            (r'/cat/([% _ \- \wd]+)',CatHandler),
             (r'/quit',QuitHandler),
             (r'/edit-cat',EditCatHandler),
             
@@ -79,6 +79,7 @@ class MainHandler(BaseHandler):
     def get(self,page=None):
         rows=self.cur.execute('select * from passage order by id desc')
         entry=self.cur.fetchall()
+
         if rows==0:
             pages=1
         elif rows%3==0:
@@ -92,6 +93,8 @@ class MainHandler(BaseHandler):
                 start=(int(page)-1)*3
                 
                 passage=entry[start:start+3]
+
+
 
                 self.render('index.html',passage=passage,page=int(page),pages=pages)
         else:
@@ -110,17 +113,33 @@ class BlogHandler(BaseHandler):
         if not islogin:
             self.redirect('/login')
         else:
-            self.render('back.html')
+            try:
+                self.cur.execute("select name from cat")
+                cat_names=self.cur.fetchall()
+                self.render('back.html',cat_names=cat_names)
+            except:
+                self.render('404.html')
     def post(self):
         p_date=time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
         title=self.get_argument('title')
         author=self.get_argument('author')
         content=self.get_argument('context')
         url=self.get_argument('url')
-        cat=self.get_argument('cat')
-        cat_url=self.get_argument('cat_url')
+        cat=self.get_argument('post_cat')
+       
         try:
-            self.cur.execute("insert into passage(title,author,p_date,content,cat,url,cat_url)values(%s,%s,%s,%s,%s,%s,%s)",(title,author,p_date,content,cat,url,cat_url))
+            self.cur.execute("select * from cat where name=%s",cat)
+            cat_url=self.cur.fetchone()
+            cat_id=cat_url['id']
+            cat_slug=cat_url['slug']
+
+        except:
+            self.render('404.html')
+
+        try:
+            self.cur.execute("insert into passage(title,author,p_date,content,cat,url,cat_url)values(%s,%s,%s,%s,%s,%s,%s)",(title,author,p_date,content,cat,url,cat_slug))
+            
+            self.cur.execute("insert into cat_rel(post_id,cat_id) values((select max(id) from passage),%s)",cat_id)
             self.redirect('/')
         except:
             self.render('404.html')
@@ -171,7 +190,31 @@ class EditCatHandler(BaseHandler):
         if not islogin:
             self.redirect('/login')
         else:
-            self.render('edit-cat.html')
+            try:
+                self.cur.execute('select * from cat')
+                cats=self.cur.fetchall()
+
+                for cat in cats:
+                   
+                    num=self.cur.execute("select * from cat_rel where cat_id=%s",cat['id'])
+                    
+                    cat['num']=num
+                self.render('edit-cat.html',cats=cats)
+            except:
+                self.render('404.html')
+
+    def post(self):
+        cat_name=self.get_argument('cat-name')
+        cat_url=self.get_argument('cat-url')
+        if cat_name and cat_url:
+            try:
+                self.cur.execute("insert into cat(name,slug)values(%s,%s)",(cat_name,cat_url.replace(' ','-')))
+                self.redirect('/edit-cat')
+            except:
+                self.render('404.html')
+
+
+
 
 
 class NavModule(tornado.web.UIModule):
