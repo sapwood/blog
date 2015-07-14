@@ -20,7 +20,7 @@
 			<a href="/single/{{url_escape(row['url'])}}" class="btn-default btn-red">阅读全文</a>
 		</div>
 		<div class='post-cat'>
-			<a href="/cat/{{row['cat_url']}}">{{row['cat']}}</a>
+			<a href="/cat/{{url_escape(row['cat_url'])}}">{{row['cat']}}</a>
 		</div>
 	
 	</div>
