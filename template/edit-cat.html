@@ -1,7 +1,50 @@
 {%extends back.html%}
 
 {%block postbody-content%}
+<div class='center'>
+	
+	<div class='add-cat'>
+		
+		<div class='cat-name'>
+			<label  for='name'>名字
+				<input type='text' id='name' name='cat-name'>
+			</label>
+		</div>
+		<div class='cat-url'>
+			<label  for='url'>URL
+				<input type='text' id='url' name='cat-url'>
+			</label>
+		</div>
+		<input type='submit' class='btn-default btn-blue' value='添加'>
+		
+	</div>
+	
+	<div class='show-cat'>
+		<table>
+			<thead >
+				<tr>
+					<th><input type='checkbox'></th>
+					<th>名字</th>
+					<th>SLUG</th>
+					<th>文章数量</th>
+				</tr>
+			</thead>
+			<tbody>
+				{%for cat in cats%}
+					<tr>
+						<th><input type='checkbox'></th>
+						<th>{{cat['name']}}</th>
+						<th>{{cat['slug']}}</th>
+						<th>{{cat['num']}}</th>
+					</tr>
+				{%end%}
+			</tbody>
+		</table>
+	</div>
+</div>
 
 
+{%end%}
 
+{%block post-box%}
 {%end%}
